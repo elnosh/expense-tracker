@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import TransactionContext from '../../context/transaction/transactionContext'
 
 //React-Bootstrap
@@ -18,11 +18,99 @@ const TransactionList = () => {
 
 	const transactionContext = useContext(TransactionContext)
 	const { transactions, getTransactions } = transactionContext
+	const [transactionType, setTransactionType] = useState('all')
 
 	useEffect(() => {
 		getTransactions()
 		//eslint-disable-next-line
 	}, [])
+
+	const onSelect = e => {
+		setTransactionType(e)
+	}
+
+	const renderExpenses = () => {
+		if (transactions !== null) {
+			transactions.map(transaction => {
+				if (transaction.type === 'expense') {
+					return (
+						<tr key={transaction._id}>
+							<td>{new Date(transaction.date).toDateString()}</td>
+							<td>{transaction.description}</td>
+							<td
+								style={{
+									backgroundColor:
+										transaction.type === 'expense'
+											? '#c93a3a'
+											: '#46aa47'
+								}}
+							>
+								${transaction.amount.toFixed(2)}
+							</td>
+						</tr>
+					)
+				}
+			})
+		}
+	}
+
+	const renderIncome = () => {
+		if (transactions !== null) {
+			transactions.map(transaction => {
+				if (transaction.type === 'income') {
+					return (
+						<tr key={transaction._id}>
+							<td>{new Date(transaction.date).toDateString()}</td>
+							<td>{transaction.description}</td>
+							<td
+								style={{
+									backgroundColor:
+										transaction.type === 'expense'
+											? '#c93a3a'
+											: '#46aa47'
+								}}
+							>
+								${transaction.amount.toFixed(2)}
+							</td>
+						</tr>
+					)
+				}
+			})
+		}
+	}
+
+	const renderAll = () => {
+		if (transactions !== null) {
+			transactions.map(transaction => {
+				return (
+					<tr key={transaction._id}>
+						<td>{new Date(transaction.date).toDateString()}</td>
+						<td>{transaction.description}</td>
+						<td
+							style={{
+								backgroundColor:
+									transaction.type === 'expense'
+										? '#c93a3a'
+										: '#46aa47'
+							}}
+						>
+							${transaction.amount.toFixed(2)}
+						</td>
+					</tr>
+				)
+			})
+		}
+	}
+
+	const renderTransactions = () => {
+		if (transactionType === 'expenses') {
+			renderExpenses()
+		} else if (transactionType === 'income') {
+			renderIncome()
+		} else {
+			renderAll()
+		}
+	}
 
 	return (
 		<div style={styles}>
@@ -38,11 +126,13 @@ const TransactionList = () => {
 				<DropdownButton
 					id="dropdown-basic-button"
 					title="All Transactions"
-					style={{ margin: '10px 5px 10px 700px' }}
+					variant="dark"
+					style={{ float: 'right' }}
+					onSelect={onSelect}
 				>
-					<Dropdown.Item>All</Dropdown.Item>
-					<Dropdown.Item>Expenses</Dropdown.Item>
-					<Dropdown.Item>Income</Dropdown.Item>
+					<Dropdown.Item eventKey="all">All</Dropdown.Item>
+					<Dropdown.Item eventKey="expenses">Expenses</Dropdown.Item>
+					<Dropdown.Item eventKey="income">Income</Dropdown.Item>
 				</DropdownButton>
 			</Navbar>
 			<Table
