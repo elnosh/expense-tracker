@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import TransactionContext from '../context/transaction/transactionContext'
+import TransactionContext from '../../context/transaction/transactionContext'
 
 // React-Bootstrap
 import Card from 'react-bootstrap/Card'
@@ -17,7 +17,6 @@ const TransactionsSummary = () => {
 
 	useEffect(() => {
 		getTransactions()
-
 		//eslint-disable-next-line
 	}, [])
 

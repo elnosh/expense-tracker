@@ -10,13 +10,7 @@ export default (state, action) => {
 				...state,
 				error: action.payload
 			}
-		// case 'GET_EXPENSES':
-		// 	return {
-		// 		...state,
-		// 		expenses: state.transactions.filter(transaction => {
-		// 			return transaction.type === 'expense'
-		// 		})
-		// 	}
+
 		default:
 			return state
 	}

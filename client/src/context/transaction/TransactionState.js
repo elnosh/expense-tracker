@@ -20,9 +20,8 @@ const TransactionState = props => {
 		} catch (err) {
 			dispatch({
 				type: 'TRANSACTION_ERROR',
-				payload: err.response.msg
+				payload: err
 			})
-			console.log('error')
 		}
 	}
 
@@ -31,11 +30,6 @@ const TransactionState = props => {
 	// Update transaction
 
 	// Delete transaction
-
-	// Get expenses
-	// const getExpenses = async () => {
-	// 	dispatch({ type: 'GET_EXPENSES' })
-	// }
 
 	return (
 		<TransactionContext.Provider
