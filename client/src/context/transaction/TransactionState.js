@@ -6,6 +6,7 @@ import TransactionReducer from './transactionReducer'
 const TransactionState = props => {
 	const initialState = {
 		transactions: null,
+		filteredTransactions: null,
 		error: null
 	}
 
@@ -31,12 +32,25 @@ const TransactionState = props => {
 
 	// Delete transaction
 
+	// Filter transactions
+	const filterTransactions = text => {
+		dispatch({ type: 'FILTER_TRANSACTIONS', payload: text })
+	}
+
+	// Clear filtered transactions
+	const clearFilter = () => {
+		dispatch({ type: 'CLEAR_FILTER' })
+	}
+
 	return (
 		<TransactionContext.Provider
 			value={{
 				transactions: state.transactions,
 				error: state.error,
-				getTransactions
+				filteredTransactions: state.filteredTransactions,
+				getTransactions,
+				filterTransactions,
+				clearFilter
 			}}
 		>
 			{props.children}
