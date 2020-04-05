@@ -3,11 +3,13 @@ import axios from 'axios'
 import TransactionContext from './transactionContext'
 import TransactionReducer from './transactionReducer'
 
-const TransactionState = props => {
+const TransactionState = (props) => {
 	const initialState = {
 		transactions: null,
+		income: null,
+		expenses: null,
 		filteredTransactions: null,
-		error: null
+		error: null,
 	}
 
 	const [state, dispatch] = useReducer(TransactionReducer, initialState)
@@ -21,9 +23,19 @@ const TransactionState = props => {
 		} catch (err) {
 			dispatch({
 				type: 'TRANSACTION_ERROR',
-				payload: err
+				payload: err,
 			})
 		}
+	}
+
+	// Get Expenses
+	const getExpenses = () => {
+		dispatch({ type: 'GET_EXPENSES' })
+	}
+
+	// Get Income
+	const getIncome = () => {
+		dispatch({ type: 'GET_INCOME' })
 	}
 
 	// Add transaction
@@ -33,7 +45,7 @@ const TransactionState = props => {
 	// Delete transaction
 
 	// Filter transactions
-	const filterTransactions = text => {
+	const filterTransactions = (text) => {
 		dispatch({ type: 'FILTER_TRANSACTIONS', payload: text })
 	}
 
@@ -46,11 +58,15 @@ const TransactionState = props => {
 		<TransactionContext.Provider
 			value={{
 				transactions: state.transactions,
+				expenses: state.expenses,
+				income: state.income,
 				error: state.error,
 				filteredTransactions: state.filteredTransactions,
 				getTransactions,
+				getExpenses,
+				getIncome,
 				filterTransactions,
-				clearFilter
+				clearFilter,
 			}}
 		>
 			{props.children}
