@@ -39,6 +39,21 @@ const TransactionState = (props) => {
 	}
 
 	// Add transaction
+	const addTransaction = async (transaction) => {
+		const config = {
+			headers: {
+				'Content-Type': 'Application/json',
+			},
+		}
+
+		try {
+			const res = await axios.post('/transactions', transaction, config)
+
+			dispatch({ type: 'ADD_TRANSACTION', payload: res.data })
+		} catch (err) {
+			dispatch({ type: 'TRANSACTION_ERROR', payload: err.response.msg })
+		}
+	}
 
 	// Update transaction
 
@@ -67,6 +82,7 @@ const TransactionState = (props) => {
 				getIncome,
 				filterTransactions,
 				clearFilter,
+				addTransaction,
 			}}
 		>
 			{props.children}

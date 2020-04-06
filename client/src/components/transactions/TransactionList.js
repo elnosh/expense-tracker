@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import TransactionContext from '../../context/transaction/transactionContext'
 import TransactionItem from './TransactionItem'
 import TransactionSearch from './TransactionsSearch'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import AddTransactionModal from './AddTransactionModal'
 
 //React-Bootstrap
 import Table from 'react-bootstrap/Table'
 import Navbar from 'react-bootstrap/Navbar'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
+import Button from 'react-bootstrap/Button'
 
 const TransactionList = () => {
 	const styles = {
@@ -84,6 +85,7 @@ const TransactionList = () => {
 					<Dropdown.Item eventKey="Expenses">Expenses</Dropdown.Item>
 					<Dropdown.Item eventKey="Income">Income</Dropdown.Item>
 				</DropdownButton>
+				<AddTransactionModal />
 			</Navbar>
 			<Table
 				striped
@@ -135,7 +137,7 @@ const TransactionList = () => {
 							<tr></tr>
 						)
 					) : (
-						<tr></tr>
+						<tr>Add Transactions</tr>
 					)}
 				</tbody>
 			</Table>
