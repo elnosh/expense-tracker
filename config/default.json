@@ -1,3 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://miguelhun:miguelhun12345@expensetracker-euu72.mongodb.net/test?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://miguelhun:miguelhun12345@expensetracker-euu72.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "secretJWT"
 }
