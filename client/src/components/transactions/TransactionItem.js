@@ -11,6 +11,7 @@ const TransactionItem = ({ transaction }) => {
 	const transactionContext = useContext(TransactionContext)
 	const { deleteTransaction } = transactionContext
 
+	// Delete transaction
 	const onDelete = () => {
 		deleteTransaction(_id)
 	}

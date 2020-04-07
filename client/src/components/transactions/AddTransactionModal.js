@@ -1,4 +1,4 @@
-import React, { useState, useContext, createRef } from 'react'
+import React, { useState, useContext } from 'react'
 import TransactionContext from '../../context/transaction/transactionContext'
 
 // React-Bootstrap
@@ -20,6 +20,7 @@ const AddTransactionModal = () => {
 
 	const { amount, description, type } = transaction
 
+	// Handle show modal
 	const handleShow = () => setShow(true)
 	const handleClose = () => setShow(false)
 
@@ -29,6 +30,7 @@ const AddTransactionModal = () => {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
+		// Add transaction
 		addTransaction(transaction)
 	}
 
