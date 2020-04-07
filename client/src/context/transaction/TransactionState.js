@@ -17,7 +17,7 @@ const TransactionState = (props) => {
 	// Get transactions
 	const getTransactions = async () => {
 		try {
-			const res = await axios.get('/transactions')
+			const res = await axios.get('transactions')
 
 			dispatch({ type: 'GET_TRANSACTIONS', payload: res.data })
 		} catch (err) {
@@ -47,7 +47,7 @@ const TransactionState = (props) => {
 		}
 
 		try {
-			const res = await axios.post('/transactions', transaction, config)
+			const res = await axios.post('transactions', transaction, config)
 
 			dispatch({ type: 'ADD_TRANSACTION', payload: res.data })
 		} catch (err) {
@@ -55,9 +55,16 @@ const TransactionState = (props) => {
 		}
 	}
 
-	// Update transaction
-
 	// Delete transaction
+	const deleteTransaction = async (id) => {
+		try {
+			await axios.delete(`transactions/${id}`)
+
+			dispatch({ type: 'DELETE_TRANSACTION', payload: id })
+		} catch (err) {
+			dispatch({ type: 'TRANSACTION_ERROR' })
+		}
+	}
 
 	// Filter transactions
 	const filterTransactions = (text) => {
@@ -83,6 +90,7 @@ const TransactionState = (props) => {
 				filterTransactions,
 				clearFilter,
 				addTransaction,
+				deleteTransaction,
 			}}
 		>
 			{props.children}

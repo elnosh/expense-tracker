@@ -99,6 +99,7 @@ const TransactionList = () => {
 						<th style={{ width: '15%' }}>Date</th>
 						<th>Description</th>
 						<th style={{ width: '10%' }}>Amount</th>
+						<th style={{ width: '5%' }}></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -137,7 +138,7 @@ const TransactionList = () => {
 							<tr></tr>
 						)
 					) : (
-						<tr>Add Transactions</tr>
+						<tr></tr>
 					)}
 				</tbody>
 			</Table>

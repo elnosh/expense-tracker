@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, createRef } from 'react'
 import TransactionContext from '../../context/transaction/transactionContext'
 
 // React-Bootstrap
@@ -13,7 +13,7 @@ const AddTransactionModal = () => {
 
 	const [show, setShow] = useState(false)
 	const [transaction, setTransaction] = useState({
-		amount: null,
+		amount: '',
 		description: '',
 		type: '',
 	})
@@ -80,7 +80,7 @@ const AddTransactionModal = () => {
 									type="radio"
 									label="Income"
 									name="type"
-									value="personal"
+									value="income"
 									checked={type === 'income'}
 									onChange={onChange}
 								/>
