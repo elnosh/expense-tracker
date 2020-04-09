@@ -121,7 +121,7 @@ const Login = (props) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						color="primary"
+						color="default"
 						className={classes.submit}
 						onClick={onSubmit}
 					>

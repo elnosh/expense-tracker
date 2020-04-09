@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavbarComp from './components/layout/NavbarComp'
 import Home from './components/pages/Home'
+import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import PrivateRoute from './components/routing/PrivateRoute'
 import Alerts from './components/layout/Alerts'
@@ -36,6 +37,11 @@ const App = () => {
 										exact
 										path="/login"
 										component={Login}
+									/>
+									<Route
+										exact
+										path="/register"
+										component={Register}
 									/>
 								</Switch>
 							</div>

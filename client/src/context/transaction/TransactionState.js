@@ -66,6 +66,11 @@ const TransactionState = (props) => {
 		}
 	}
 
+	// Clear Transactions
+	const clearTransactions = () => {
+		dispatch({ type: 'CLEAR_TRANSACTIONS' })
+	}
+
 	// Filter transactions
 	const filterTransactions = (text) => {
 		dispatch({ type: 'FILTER_TRANSACTIONS', payload: text })
@@ -91,6 +96,7 @@ const TransactionState = (props) => {
 				clearFilter,
 				addTransaction,
 				deleteTransaction,
+				clearTransactions,
 			}}
 		>
 			{props.children}

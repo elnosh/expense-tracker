@@ -1,16 +1,18 @@
 const express = require('express')
 const router = express.Router()
+const auth = require('../middleware/auth')
 const { check, validationResult } = require('express-validator')
 const Transaction = require('../models/Transaction')
+const User = require('../models/User')
 
 // @route       GET /transactions
 // desc         Get all transactions
-// @access
-router.get('/', async (req, res) => {
+// @access		Private
+router.get('/', auth, async (req, res) => {
 	try {
 		const transactions = await Transaction.find({
-			id: req.id
-		})
+			user: req.user.id,
+		}).sort({ date: -1 })
 
 		return res.json(transactions)
 	} catch (err) {
@@ -21,19 +23,16 @@ router.get('/', async (req, res) => {
 
 // @route       POST /transactions
 // desc         Add a new transaction
-// @access
+// @access		Private
 router.post(
 	'/',
 	[
-		check('amount', 'Please enter amount')
-			.not()
-			.isEmpty(),
-		check('description', 'Please enter a description')
-			.not()
-			.isEmpty(),
-		check('type', 'Please add a type')
-			.not()
-			.isEmpty()
+		auth,
+		[
+			check('amount', 'Please enter amount').not().isEmpty(),
+			check('description', 'Please enter a description').not().isEmpty(),
+			check('type', 'Please add a type').not().isEmpty(),
+		],
 	],
 	async (req, res) => {
 		const errors = validationResult(req)
@@ -46,7 +45,8 @@ router.post(
 			const newTransaction = new Transaction({
 				amount,
 				description,
-				type
+				type,
+				user: req.user.id,
 			})
 
 			const transaction = await newTransaction.save()
@@ -60,8 +60,8 @@ router.post(
 
 // @route       PUT /transactions
 // desc         Update transaction
-// @access
-router.put('/:id', async (req, res) => {
+// @access		Private
+router.put('/:id', auth, async (req, res) => {
 	const { amount, description, type } = req.body
 
 	const transactionFields = {}
@@ -90,9 +90,9 @@ router.put('/:id', async (req, res) => {
 })
 
 // @route       DELETE /transactions
-// desc          Delete transaction
-// @access
-router.delete('/:id', async (req, res) => {
+// desc         Delete transaction
+// @access		Private
+router.delete('/:id', auth, async (req, res) => {
 	try {
 		let transaction = await Transaction.findById(req.params.id)
 

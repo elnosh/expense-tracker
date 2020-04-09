@@ -5,6 +5,18 @@ export default (state, action) => {
 				...state,
 				transactions: action.payload,
 			}
+		case 'ADD_TRANSACTION':
+			return {
+				...state,
+				transactions: [action.payload, ...state.transactions],
+			}
+		case 'DELETE_TRANSACTION':
+			return {
+				...state,
+				transactions: state.transactions.filter(
+					(transaction) => transaction._id !== action.payload
+				),
+			}
 		case 'GET_EXPENSES':
 			return {
 				...state,
@@ -23,6 +35,13 @@ export default (state, action) => {
 			return {
 				...state,
 				error: action.payload,
+			}
+		case 'CLEAR_TRANSACTIONS':
+			return {
+				...state,
+				transactions: null,
+				filteredTransactions: null,
+				error: null,
 			}
 		case 'FILTER_TRANSACTIONS':
 			return {

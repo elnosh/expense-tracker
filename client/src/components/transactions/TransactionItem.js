@@ -17,7 +17,7 @@ const TransactionItem = ({ transaction }) => {
 	}
 
 	return (
-		<tr key={_id}>
+		<tr key={_id} style={{ fontSize: '1.2em' }}>
 			<td>{new Date(date).toDateString()}</td>
 			<td>{description}</td>
 			<td
